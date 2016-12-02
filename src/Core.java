@@ -11,26 +11,19 @@ import java.util.Timer;
  * Created by Tim on 23/11/2016.
  */
 public class Core extends TimerTask{
-    private List<Room> rooms;
-    private List<Chore> chores;
-
+    private Loader loader;
     private State state;
+
     private CommCore comm;
+
     private Timer t;
 
     public Core(String folderpath) {
-        //core should get these as arguments
-//        String roomsPath = selectfile("Select rooms folder");
-//        String choresPath = selectfile("Select chores folder");
-
-        String roomsPath = folderpath + "/rooms";
-        String choresPath = folderpath + "/chores";
-
         //load
-        Loader l = new Loader();
+        loader = new Loader(folderpath);
 
-        rooms = l.loadRooms(roomsPath);
-        chores = l.loadChores(choresPath);
+        List<Room> rooms = loader.getRooms();
+        List<Chore> chores = loader.getChores();
 
         //create state
         Map<Chore, Rooms> iterators = new HashMap<>();
@@ -44,7 +37,7 @@ public class Core extends TimerTask{
         state = new State(iterators);
 
         //create commcore
-        comm = new CommCore("corveesysteem@gmail.com", "39lA*v3a-V*ai(pal*a]s3j0Skla"); // this should be in a file
+        comm = new CommCore(loader.getGmailUsername(), loader.getGmailPassword()); // this should be in a file
 
 
     }
@@ -58,7 +51,7 @@ public class Core extends TimerTask{
         //update system
         Map<Chore, String> choresDone = comm.readmails();
         for (Chore c : choresDone.keySet()) {
-            Optional<Room> or = rooms.stream().filter(room -> room.getEmail() .equals( choresDone.get(c))).findAny();
+            Optional<Room> or = loader.getRooms().stream().filter(room -> room.getEmail() .equals( choresDone.get(c))).findAny();
             if (or.isPresent()) {
                 state.done(c, or.get());
             }

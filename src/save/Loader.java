@@ -5,16 +5,27 @@ import model.Room;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by Tim on 24/11/2016.
  */
 public class Loader {
+    private List<Room> rooms;
+    private List<Chore> chores;
 
-    public List<Room> loadRooms(String folderpath) {
+    private String gmailUsername;
+    private String gmailPassword;
+
+    public Loader(String folderpath){
+        rooms = loadRooms(folderpath + "/rooms");
+        chores = loadChores(folderpath + "/chores");
+        loadCredentials(folderpath);
+        System.out.println("$" + getGmailUsername() + "$");
+        System.out.println("$" + getGmailPassword() + "$");
+    }
+
+    private List<Room> loadRooms(String folderpath) {
         File folder = new File(folderpath);
         File[] listOfFiles = folder.listFiles();
 
@@ -47,7 +58,7 @@ public class Loader {
         return rooms;
     }
 
-    public List<Chore> loadChores(String folderpath) {
+    private List<Chore> loadChores(String folderpath) {
         File folder = new File(folderpath);
         File[] listOfFiles = folder.listFiles();
 
@@ -77,5 +88,40 @@ public class Loader {
         }
 
         return chores;
+    }
+
+    private void loadCredentials(String folderpath){
+        File folder = new File(folderpath);
+        File[] listOfFiles = folder.listFiles();
+
+        Optional<File> of = Arrays.stream(listOfFiles).filter(file -> file.getName().contains("gmail")).findAny();
+        if (of.isPresent()) {
+            File f = of.get();
+            Scanner s = null;
+            try {
+                s = new Scanner(f);
+                if(s.hasNext()) gmailUsername = s.next().replace("\n", "");
+                if(s.hasNext()) gmailPassword = s.next().replace("\n", "");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public List<Chore> getChores() {
+        return chores;
+    }
+
+    public String getGmailUsername() {
+        return gmailUsername;
+    }
+
+    public String getGmailPassword() {
+        return gmailPassword;
     }
 }
