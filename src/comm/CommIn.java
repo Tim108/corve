@@ -4,6 +4,7 @@ import model.Chore;
 import model.Room;
 
 import javax.mail.*;
+import javax.mail.search.FlagTerm;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.Properties;
 public class CommIn {
 
     public Map<String, String> check(String host, String storeType, String user,
-                                  String password) { // returns map <subject,email address>
+                                     String password) { // returns map <subject,email address>
         try {
 
             //create properties field
@@ -44,16 +45,13 @@ public class CommIn {
             emailFolder.open(Folder.READ_WRITE);
 
             // retrieve the messages from the folder in an array and print it
-            Message[] messages = emailFolder.getMessages();
+            Message[] messages = emailFolder.search(new FlagTerm(new Flags(Flags.Flag.SEEN), false));
             System.out.println("messages.length---" + messages.length);
 
             Map<String, String> responses = new HashMap<>();
 
             for (int i = 0, n = messages.length; i < n; i++) {
                 Message message = messages[i];
-                if (message.isSet(Flags.Flag.SEEN)) { // maybe delete emails that are too old
-                    continue;
-                }
                 System.out.println("---------------------------------");
                 System.out.println("Email Number " + (i + 1));
                 System.out.println("Subject: " + message.getSubject());
@@ -61,7 +59,7 @@ public class CommIn {
                 System.out.println("Text: " + message.getContent().toString());
                 message.setFlag(Flags.Flag.SEEN, true);
 
-                responses.put(message.getSubject(), message.getFrom()[0].toString());
+                responses.put(message.getSubject().replaceFirst("^corve", ""), message.getFrom()[0].toString());
 
             }
 

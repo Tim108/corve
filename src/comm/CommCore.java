@@ -3,6 +3,7 @@ package comm;
 import model.Chore;
 import model.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +17,16 @@ public class CommCore {
     String username;
     String password;
 
+    List<String> refCodes;
+
     public CommCore(String username, String password) {
         ci = new CommIn();
         co = new CommOut();
+
         this.username = username;
         this.password = password;
+
+        refCodes = new ArrayList<>();
     }
 
     public void fine(List<Room> rooms) {
@@ -36,7 +42,10 @@ public class CommCore {
     }
 
     public void assign(Map<Chore, Room> assign) {
+        refCodes = new ArrayList<>();
+        String code = "";
         for (Chore c : assign.keySet()) {
+            code = System.currentTimeMillis() + c.hashCode() + "";
             co.doSendMail(username, password, assign.get(c).getEmail(), "Corve: Assignment", "Dear " + assign.get(c).getName() + ",\n\nYou are assigned to do "+ c.getName() + " this week. See description below:\n" + c.getDescription() + "\n\nCorve2.0");
         }
     }
