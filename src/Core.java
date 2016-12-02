@@ -1,6 +1,7 @@
 import comm.CommCore;
 import model.*;
 import save.Loader;
+import save.Saver;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -10,17 +11,22 @@ import java.util.Timer;
 /**
  * Created by Tim on 23/11/2016.
  */
-public class Core extends TimerTask{
+public class Core extends TimerTask {
     private Loader loader;
+    private Saver saver;
     private State state;
 
     private CommCore comm;
 
     private Timer t;
 
+    private List<Room> fined;
+    private List<Room> rewarded;
+
     public Core(String folderpath) {
         //load
         loader = new Loader(folderpath);
+        saver = new Saver(folderpath);
 
         List<Room> rooms = loader.getRooms();
         List<Chore> chores = loader.getChores();
@@ -39,7 +45,9 @@ public class Core extends TimerTask{
         //create commcore
         comm = new CommCore(loader.getGmailUsername(), loader.getGmailPassword()); // this should be in a file
 
-
+        //instantiate fined and rewarded totals
+        fined = new ArrayList<>();
+        rewarded = new ArrayList<>();
     }
 
     public void start() {
@@ -47,11 +55,11 @@ public class Core extends TimerTask{
         t.schedule(this, new Date(), 30000); // the long should be 604800000 (one week)
     }
 
-    public void run(){
+    public void run() {
         //update system
         Map<Chore, String> choresDone = comm.readmails();
         for (Chore c : choresDone.keySet()) {
-            Optional<Room> or = loader.getRooms().stream().filter(room -> room.getEmail() .equals( choresDone.get(c))).findAny();
+            Optional<Room> or = loader.getRooms().stream().filter(room -> room.getEmail().equals(choresDone.get(c))).findAny();
             if (or.isPresent()) {
                 state.done(c, or.get());
             }
@@ -59,11 +67,17 @@ public class Core extends TimerTask{
 
         Update u = state.update();
         System.out.println(u);
+        fined.addAll(u.fined);
+        rewarded.addAll(u.rewarded);
+
+        //save results
+        saver.doWeekUpdate(u, fined, rewarded);
 
         //send emails
         comm.fine(u.fined);
         comm.reward(u.rewarded);
         comm.assign(u.assigned);
+
     }
 
     public void stop() {
