@@ -4,6 +4,7 @@ import model.Chore;
 import model.Room;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class CommCore {
     String username;
     String password;
 
-    List<String> refCodes;
+    Map<String, Chore> refCodes;
 
     public CommCore(String username, String password) {
         ci = new CommIn();
@@ -26,7 +27,7 @@ public class CommCore {
         this.username = username;
         this.password = password;
 
-        refCodes = new ArrayList<>();
+        refCodes = new HashMap<>();
     }
 
     public void fine(List<Room> rooms) {
@@ -42,16 +43,26 @@ public class CommCore {
     }
 
     public void assign(Map<Chore, Room> assign) {
-        refCodes = new ArrayList<>();
+        refCodes = new HashMap<>();
         String code = "";
         for (Chore c : assign.keySet()) {
             code = System.currentTimeMillis() + c.hashCode() + "";
-            co.doSendMail(username, password, assign.get(c).getEmail(), "Corve: Assignment", "Dear " + assign.get(c).getName() + ",\n\nYou are assigned to do "+ c.getName() + " this week. See description below:\n" + c.getDescription() + "\n\nCorve2.0");
+            co.doSendMail(username, password, assign.get(c).getEmail(), "Corve: Assignment - " + code, "Dear " + assign.get(c).getName() + ",\n\nYou are assigned to do " + c.getName() + " this week. See description below:\n" + c.getDescription().replace("<code>", code) + "\n\nCorve2.0");
+            refCodes.put(code, c);
         }
     }
 
-    public void readmails(){
-        Map<String, String> responses = ci.check("pop.gmail.com", "pop3", username, password);
+    public Map<Chore, String> readmails() {
+        Map r = new HashMap();
 
+        Map<String, String> responses = ci.check(username, password);
+        for (String subject : responses.keySet()) {
+            for (String code : refCodes.keySet()) {
+                if (subject.contains(code)) {
+                    r.put(refCodes.get(code), responses.get(subject));
+                }
+            }
+        }
+        return r;
     }
 }

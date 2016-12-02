@@ -17,7 +17,7 @@ public class Rooms implements Iterator {
     private int current = 0;
 
     public Rooms(List<Room> rooms, int startI) {
-        if(rooms.size() == 0) return;
+        if (rooms.size() == 0) return;
 
         this.rooms = rooms;
         this.startI = startI;
@@ -48,7 +48,7 @@ public class Rooms implements Iterator {
         }
     }
 
-    public void add(Room r){
+    public void add(Room r) {
         removeRoom(r.getNr());
         rooms.add(r);
         Collections.sort(rooms);
@@ -59,12 +59,12 @@ public class Rooms implements Iterator {
         recalcCurrent();
     }
 
-    private void increment(){
+    private void increment() {
         addedI++;
         recalcCurrent();
     }
 
-    private void recalcCurrent(){
+    private void recalcCurrent() {
         current = (startI + addedI) % rooms.size();
     }
 }

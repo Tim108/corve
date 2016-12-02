@@ -11,6 +11,9 @@ import java.util.Timer;
  * Created by Tim on 23/11/2016.
  */
 public class Core extends TimerTask{
+    private List<Room> rooms;
+    private List<Chore> chores;
+
     private State state;
     private CommCore comm;
     private Timer t;
@@ -26,8 +29,8 @@ public class Core extends TimerTask{
         //load
         Loader l = new Loader();
 
-        List<Room> rooms = l.loadRooms(roomsPath);
-        List<Chore> chores = l.loadChores(choresPath);
+        rooms = l.loadRooms(roomsPath);
+        chores = l.loadChores(choresPath);
 
         //create state
         Map<Chore, Rooms> iterators = new HashMap<>();
@@ -48,18 +51,26 @@ public class Core extends TimerTask{
 
     public void start() {
         t = new Timer();
-        t.schedule(this, new Date(), 3000); // the long should be 604800000 (one week)
+        t.schedule(this, new Date(), 30000); // the long should be 604800000 (one week)
     }
 
     public void run(){
-        comm.readmails();
+        //update system
+        Map<Chore, String> choresDone = comm.readmails();
+        for (Chore c : choresDone.keySet()) {
+            Optional<Room> or = rooms.stream().filter(room -> room.getEmail() .equals( choresDone.get(c))).findAny();
+            if (or.isPresent()) {
+                state.done(c, or.get());
+            }
+        }
+
         Update u = state.update();
         System.out.println(u);
 
-        // commented for testing
-//        comm.fine(u.fined);
-//        comm.reward(u.rewarded);
-//        comm.assign(u.assigned);
+        //send emails
+        comm.fine(u.fined);
+        comm.reward(u.rewarded);
+        comm.assign(u.assigned);
     }
 
     public void stop() {

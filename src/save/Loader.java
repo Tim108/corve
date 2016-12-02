@@ -26,13 +26,16 @@ public class Loader {
             String email = "";
 
             String filename = f.getName();
-            filename = filename.substring(0, filename.lastIndexOf("."));
+            if (filename.contains(".")) {
+                filename = filename.substring(0, filename.lastIndexOf("."));
+            }
 
             name = filename.split("#")[0];
             number = Integer.parseInt(filename.split("#")[1]);
 
             try {
-                email = new Scanner(new File(folderpath + "/" + f.getName())).useDelimiter("\\Z").next();
+                Scanner s = new Scanner(f).useDelimiter("\\Z");
+                if(s.hasNext()) email = s.next();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -56,14 +59,16 @@ public class Loader {
             String description = "";
 
             String filename = f.getName();
-            filename = filename.substring(0, filename.lastIndexOf("."));
+            if (filename.contains(".")) {
+                filename = filename.substring(0, filename.lastIndexOf("."));
+            }
 
             name = filename.split("#")[0];
             interval = Integer.parseInt(filename.split("#")[1]);
 
-
             try {
-                description = new Scanner(new File(folderpath + "/" + f.getName())).useDelimiter("\\Z").next();
+                Scanner s = new Scanner(f).useDelimiter("\\Z");
+                if(s.hasNext()) description = s.next();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
