@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/corve2.0.iml" filepath="$PROJECT_DIR$/corve2.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/corve.iml" filepath="$PROJECT_DIR$/corve.iml" />
     </modules>
   </component>
 </project>
