@@ -39,7 +39,7 @@ public class Rooms implements Iterator {
     public void removeRoom(int i) { // unsafe, should not be used once system is started
         int rem = -1;
         for (Room r : rooms) {
-            if (r.getNr() == i) {
+            if (r.getId() == i) {
                 rem = rooms.indexOf(r);
             }
         }
@@ -49,7 +49,7 @@ public class Rooms implements Iterator {
     }
 
     public void add(Room r) {
-        removeRoom(r.getNr());
+        removeRoom(r.getId());
         rooms.add(r);
         Collections.sort(rooms);
     }

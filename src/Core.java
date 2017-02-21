@@ -1,37 +1,37 @@
 import comm.CommCore;
 import model.*;
-import save.Loader;
-import save.Saver;
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
+import save.DBController;
+import save.Record;
 
-import javax.swing.*;
-import java.io.IOException;
 import java.util.*;
-import java.util.Timer;
+
+import static org.quartz.JobBuilder.newJob;
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
+import static org.quartz.TriggerBuilder.newTrigger;
 
 /**
  * Created by Tim on 23/11/2016.
  */
-public class Core extends TimerTask {
-    private Loader loader;
-    private Saver saver;
-    private State state;
+public class Core implements Observer {
+    private static final String MAIL_USER_NAME = "corveesysteem@gmail.com";
+    private static final String MAIL_PASSWORD = "39lA*v3a-V*ai(pal*a]s3j0Skla";
+
+    private DBController dbc;
+    private Assigner assigner;
 
     private CommCore comm;
 
-    private Timer t;
+    private Scheduler scheduler;
 
-    private List<Room> fined;
-    private List<Room> rewarded;
-
-    public Core(String folderpath) {
+    public Core() {
+        dbc = new DBController();
         //load
-        loader = new Loader(folderpath);
-        saver = new Saver(folderpath);
+        List<Room> rooms = dbc.getRooms();
+        List<Chore> chores = dbc.getChores();
 
-        List<Room> rooms = loader.getRooms();
-        List<Chore> chores = loader.getChores();
-
-        //create state
+        //create assigner
         Map<Chore, Rooms> iterators = new HashMap<>();
 
         for (int i = 0; i < chores.size(); i++) {
@@ -40,63 +40,59 @@ public class Core extends TimerTask {
             iterators.put(chores.get(i), rs);
         }
 
-        state = new State(iterators);
+        assigner = new Assigner(iterators);
+        assigner.addObserver(this);
 
         //create commcore
-        comm = new CommCore(loader.getGmailUsername(), loader.getGmailPassword()); // this should be in a file
+        comm = new CommCore(MAIL_USER_NAME, MAIL_PASSWORD); // this should be in a file
 
-        //instantiate fined and rewarded totals
-        fined = new ArrayList<>();
-        rewarded = new ArrayList<>();
+        //create scheduler
+        try {
+            scheduler = StdSchedulerFactory.getDefaultScheduler();
+            JobDataMap jobData = new JobDataMap();
+            jobData.put("assigner", assigner);
+            JobDetail job = newJob(JobPretender.class).setJobData(jobData).withIdentity("Assigner").build();
+//            Trigger trigger = newTrigger().withIdentity("Every Friday").startNow().withSchedule(weeklyOnDayAndHourAndMinute(DateBuilder.SATURDAY, 2, 0)).build();
+            Trigger trigger = newTrigger().withIdentity("Every 10 seconds").startNow().withSchedule(simpleSchedule().withIntervalInSeconds(10).repeatForever()).build();
+            scheduler.scheduleJob(job, trigger);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
 
     public void start() {
-        t = new Timer();
-        t.schedule(this, new Date(), 30000); // the long should be 604800000 (one week)
-    }
-
-    public void run() {
-        //update system
-        Map<Chore, String> choresDone = comm.readmails();
-        for (Chore c : choresDone.keySet()) {
-            Optional<Room> or = loader.getRooms().stream().filter(room -> room.getEmail().equals(choresDone.get(c))).findAny();
-            if (or.isPresent()) {
-                state.done(c, or.get());
-            }
+        try {
+            scheduler.start();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
         }
-        state.update();
-        /*
-        Update u = state.update();
-        System.out.println(u);
-        fined.addAll(u.fined);
-        rewarded.addAll(u.rewarded);
-
-        //save results
-        saver.doWeekUpdate(u, fined, rewarded);
-
-        //send emails
-        comm.fine(u.fined);
-        comm.reward(u.rewarded);
-        comm.assign(u.assigned);
-        */
-
     }
+
+//    public void run() {
+//        //update system
+//        Map<Chore, String> choresDone = comm.readmails();
+//        for (Chore c : choresDone.keySet()) {
+//            Optional<Room> or = loader.getRooms().stream().filter(room -> room.getEmail().equals(choresDone.get(c))).findAny();
+//            if (or.isPresent()) {
+//                state.done(c, or.get());
+//            }
+//        }
+//        state.update();
+//
+//    }
 
     public void stop() {
-        t.cancel();
+        try {
+            scheduler.shutdown();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
 
-    private String selectfile(String title) {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle(title);
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chooser.setAcceptAllFileFilterUsed(false);
-
-        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            System.out.println(chooser.getSelectedFile().getPath());
-            return chooser.getSelectedFile().getPath();
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o.getClass() == Assigner.class) {
+            dbc.addRecords((List<Record>) arg);
         }
-        System.exit(0);
-        return null;
     }
 }

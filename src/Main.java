@@ -2,8 +2,8 @@ import save.DBController;
 import save.Record;
 
 import java.sql.Timestamp;
-import java.time.Duration;
-import java.time.Instant;
+import java.time.*;
+import java.time.temporal.TemporalAdjusters;
 
 public class Main {
 
@@ -15,12 +15,15 @@ public class Main {
 //
 //        Core c = new Core(args[0]);
 //        c.start();
-        DBController dbc = new DBController();
-        dbc.addRecord(new Record(4, 8, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plus(Duration.ofMinutes(10)))));
-        dbc.getRunningRecords().forEach(System.out::println);
-        dbc.endRecord(17, 8);
-        System.out.println("===================");
-        dbc.getRunningRecords().forEach(System.out::println);
+//        DBController dbc = new DBController();
+//        dbc.addRecord(new Record(1,1, Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.FRIDAY)))));
+//        dbc.getRunningRecords().forEach(System.out::println);
+//        dbc.endRecord(17, 8);
+//        System.out.println("===================");
+//        dbc.getRunningRecords().forEach(System.out::println);
+
+        Core c = new Core();
+        c.start();
     }
 
 

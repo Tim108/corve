@@ -1,5 +1,8 @@
 package save;
 
+import model.Chore;
+import model.Room;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +94,49 @@ public class DBController {
         } finally {
             closeConnection();
         }
+    }
+
+    public List<Room> getRooms(){
+        List<Room> rooms = new ArrayList<>();
+        try {
+            openConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM corve.rooms");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                rooms.add(new Room(id, name, email));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return rooms;
+    }
+
+    public List<Chore> getChores() {
+        List<Chore> chores = new ArrayList<>();
+        try {
+            openConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM corve.chores");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+                int choreinterval = rs.getInt("choreinterval");
+                chores.add(new Chore(id, name, description, choreinterval));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return chores;
     }
 
     private void openConnection() {

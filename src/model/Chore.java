@@ -4,11 +4,13 @@ package model;
  * Created by Tim on 23/11/2016.
  */
 public class Chore {
+    private int id;
     private String name;
     private String description;
     private int interval;
 
-    public Chore(String name, String description, int interval) {
+    public Chore(int id, String name, String description, int interval) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.interval = interval;
@@ -36,6 +38,10 @@ public class Chore {
 
     public void setInterval(int interval) {
         this.interval = interval;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
