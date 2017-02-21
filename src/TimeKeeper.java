@@ -1,11 +1,12 @@
 import java.util.Date;
+import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * Created by Tim on 25/11/2016.
  */
-public class TimeKeeper implements Runnable {
+public class TimeKeeper extends Observable implements Runnable {
     Core core;
     Date start;
 
@@ -19,4 +20,6 @@ public class TimeKeeper implements Runnable {
         Timer t = new Timer();
         t.schedule(core, start, 3000);
     }
+
+
 }

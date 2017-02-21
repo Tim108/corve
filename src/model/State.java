@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Tim on 23/11/2016.
  */
-public class State {
+public class State extends Model{
     private int updateNr = 0;
 
     private Map<Chore, Rooms> iterators;
@@ -21,7 +21,7 @@ public class State {
         done = new HashMap<>();
     }
 
-    public Update update(){
+    public void update(){
         List<Room> fined = new ArrayList<>();
         List<Room> rewarded = new ArrayList<>();
 
@@ -52,7 +52,8 @@ public class State {
         Update r = new Update(fined, rewarded, assigned, updateNr, d);
         updateNr++;
 
-        return r;
+        updates.add(r);
+        super.update();
     }
 
     public void done(Chore c, Room r) {

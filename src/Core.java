@@ -64,7 +64,8 @@ public class Core extends TimerTask {
                 state.done(c, or.get());
             }
         }
-
+        state.update();
+        /*
         Update u = state.update();
         System.out.println(u);
         fined.addAll(u.fined);
@@ -77,6 +78,7 @@ public class Core extends TimerTask {
         comm.fine(u.fined);
         comm.reward(u.rewarded);
         comm.assign(u.assigned);
+        */
 
     }
 
