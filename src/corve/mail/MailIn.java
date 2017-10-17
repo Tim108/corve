@@ -1,11 +1,7 @@
-package comm;
-
-import model.Chore;
-import model.Room;
+package corve.mail;
 
 import javax.mail.*;
 import javax.mail.search.FlagTerm;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -13,7 +9,7 @@ import java.util.Properties;
 /**
  * Created by Tim on 25/11/2016.
  */
-public class CommIn {
+public class MailIn {
 
     public Map<String, String> check(String user,
                                      String password) { // returns map <subject,email address>

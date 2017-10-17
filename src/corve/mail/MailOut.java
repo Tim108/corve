@@ -1,4 +1,4 @@
-package comm;
+package corve.mail;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -12,7 +12,7 @@ import java.util.Properties;
 /**
  * Created by Tim on 25/11/2016.
  */
-public class CommOut {
+public class MailOut {
 
     public void doSendMail(final String username, final String password, String to, String subject, String email_body) {
 
