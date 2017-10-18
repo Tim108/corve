@@ -2,6 +2,7 @@ package corve.model;
 
 import corve.notification.Notifier;
 import corve.save.DBController;
+import corve.setup.Settings;
 import corve.util.Chore;
 import corve.util.JobDataTags;
 import corve.util.Record;
@@ -14,13 +15,13 @@ import org.quartz.JobExecutionException;
 import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 /**
  * Created by Tim on 23/11/2016.
  */
 public class Assigner implements Job {
-    private static DayOfWeek DEADLINE_DAY = DayOfWeek.SATURDAY;
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -32,7 +33,7 @@ public class Assigner implements Job {
         List<Room> rooms = (List<Room>) data.get(JobDataTags.ROOMS);
 
         // Set the deadline
-        //LocalDateTime deadline = LocalDateTime.now().with(TemporalAdjusters.next(DEADLINE_DAY)).withHour(4).withMinute(0).withSecond(0).withNano(0);
+//        LocalDateTime deadline = LocalDateTime.now().with(TemporalAdjusters.next(Settings.DEADLINE_DAY)).withHour(Settings.DEADLINE_HOUR).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime deadline = LocalDateTime.now().plusSeconds(2);
 
         // Determine who's turn it is
@@ -51,7 +52,5 @@ public class Assigner implements Job {
         notifier.notifyOfAssignment(room.getEmail(), record.getEnd_date(), chore.getName(), record.getCode());
 
         System.out.println("Assigned: " + record);
-
-        //Todo notify people of their chores
     }
 }

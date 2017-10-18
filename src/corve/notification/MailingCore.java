@@ -1,25 +1,15 @@
 package corve.notification;
 
-import corve.util.Chore;
-import corve.util.Room;
-
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Tim on 25/11/2016.
  */
-public class MailingCore implements Notifier{
+public class MailingCore implements Notifier {
     MailOut co;
 
-    Map<String, Chore> refCodes;
-
-    public MailingCore(String username, String password) {
+    public MailingCore() {
         co = new MailOut();
-
-        refCodes = new HashMap<>();
     }
 
     @Override

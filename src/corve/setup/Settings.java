@@ -10,8 +10,8 @@ public class Settings {
     public static String DB_USERNAME;
     public static String DB_PASSWORD;
 
-    public static String MAIL_USERNAME; //= "corveesysteem@gmail.com";
-    public static String MAIL_PASSWORD; //= "39lA*v3a-V*ai(pal*a]s3j0Skla";
+    public static String MAIL_USERNAME;
+    public static String MAIL_PASSWORD;
 
     public static DayOfWeek ASSIGN_DAY;
     public static int ASSIGN_HOUR;

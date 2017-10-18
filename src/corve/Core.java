@@ -21,12 +21,10 @@ public class Core {
     private AssignerManager am;
     private PunisherManager pm;
 
-    private MailingCore comm;
-
     public Core() {
-        // check for file structure (settings file and folder with mail templates
+        // check for file structure (settings file and folder with mail templates)
         File f = new File("config.txt");
-        if(!f.exists() || f.isDirectory()) {
+        if(!f.exists() || f.isDirectory()) { // check the config file
             System.out.println("config.txt not present!");
             System.out.println("config file created, please fill in your configurations");
             try {
@@ -53,9 +51,6 @@ public class Core {
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
-
-        comm = new MailingCore(Settings.MAIL_USERNAME, Settings.MAIL_PASSWORD); // this should be in a file
-
     }
 
     public void start() {

@@ -1,5 +1,6 @@
 package corve.save;
 
+import corve.setup.Settings;
 import corve.util.Chore;
 import corve.util.Record;
 import corve.util.Room;
@@ -12,13 +13,7 @@ import java.util.List;
  * Created by Tim on 20/02/2017.
  */
 public class DBController {
-    // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/corve?verifyServerCertificate=false&useSSL=true";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "";
 
     Connection conn;
 
@@ -176,7 +171,7 @@ public class DBController {
         try {
             Class.forName(JDBC_DRIVER);
 
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = DriverManager.getConnection(Settings.DB_URL, Settings.DB_USERNAME, Settings.DB_PASSWORD);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

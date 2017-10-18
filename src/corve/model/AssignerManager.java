@@ -27,9 +27,6 @@ import static org.quartz.TriggerBuilder.newTrigger;
  * Created by Tim on 18/10/2017.
  */
 public class AssignerManager {
-    private static final DayOfWeek ASSIGN_DAY = DayOfWeek.MONDAY;
-    private static final int ASSIGN_HOUR = 4;
-    private static final int ASSIGN_MINUTE = 0;
 
     private Scheduler scheduler;
 
@@ -40,7 +37,7 @@ public class AssignerManager {
 
     public AssignerManager(DBController dbc) throws SchedulerException {
         db = dbc;
-        notifier = new MailingCore(Settings.MAIL_USERNAME, Settings.MAIL_PASSWORD);
+        notifier = new MailingCore();
         chores = db.getChores();
         rooms = db.getRooms();
         Collections.sort(rooms);
@@ -50,7 +47,7 @@ public class AssignerManager {
         scheduler = StdSchedulerFactory.getDefaultScheduler();
 
         // moment to assign
-        LocalDateTime ldt = LocalDateTime.now().with(TemporalAdjusters.next(ASSIGN_DAY)).withHour(ASSIGN_HOUR).withMinute(ASSIGN_MINUTE).withSecond(0).withNano(0);
+        LocalDateTime ldt = LocalDateTime.now().with(TemporalAdjusters.next(Settings.ASSIGN_DAY)).withHour(Settings.ASSIGN_HOUR).withMinute(0).withSecond(0).withNano(0);
         Date date = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
 
         // make the general job data which is used by all assigners

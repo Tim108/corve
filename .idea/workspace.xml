@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2e16e3f0-5b69-4a81-9fd6-acc83c4f9768" name="Default" comment="created config reader and settings, ready for global settings integration">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/corve/setup/ConfigReader.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/corve/util/Settings.java" afterPath="$PROJECT_DIR$/src/corve/setup/Settings.java" />
+    <list default="true" id="2e16e3f0-5b69-4a81-9fd6-acc83c4f9768" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/corve/Core.java" afterPath="$PROJECT_DIR$/src/corve/Core.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/corve/model/Assigner.java" afterPath="$PROJECT_DIR$/src/corve/model/Assigner.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/corve/model/AssignerManager.java" afterPath="$PROJECT_DIR$/src/corve/model/AssignerManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/corve/notification/MailOut.java" afterPath="$PROJECT_DIR$/src/corve/notification/MailOut.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/corve/model/PunisherManager.java" afterPath="$PROJECT_DIR$/src/corve/model/PunisherManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/corve/notification/MailingCore.java" afterPath="$PROJECT_DIR$/src/corve/notification/MailingCore.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/corve/save/DBController.java" afterPath="$PROJECT_DIR$/src/corve/save/DBController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/corve/setup/Settings.java" afterPath="$PROJECT_DIR$/src/corve/setup/Settings.java" />
     </list>
     <ignored path="corve2.0.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,104 +31,30 @@
     <favorites_list name="corve2.0" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Core.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/corve/Core.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.3988827">
-                  <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ConfigReader.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/corve/setup/ConfigReader.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="config.txt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/config.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="config_backup.txt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/config_backup.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="DBController.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/corve/save/DBController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-                  <folding>
-                    <marker date="1508281348111" expanded="true" signature="1114:1260" placeholder="SELECT room_... *" />
-                    <marker date="1508281348111" expanded="true" signature="1135:1156" placeholder="SELECT * FRO... archive" />
-                    <marker date="1508281348111" expanded="true" signature="1163:1184" placeholder="SELECT * FRO... records" />
-                    <marker date="1508281348111" expanded="true" signature="1714:1816" placeholder="INSERT INTO records... " />
-                    <marker date="1508281348111" expanded="true" signature="1904:2012" placeholder="INSERT INTO records... " />
-                    <marker date="1508281348111" expanded="true" signature="2708:2875" placeholder="INSERT INTO settlements... " />
-                    <marker date="1508281348111" expanded="true" signature="2760:2875" placeholder="SELECT x.id,... *" />
-                    <marker date="1508281348111" expanded="true" signature="2793:2872" placeholder="SELECT * FRO... records" />
-                    <marker date="1508281348111" expanded="true" signature="2936:3005" placeholder="INSERT INTO archive... " />
-                    <marker date="1508281348111" expanded="true" signature="2956:3005" placeholder="select * FRO... records" />
-                    <marker date="1508281348111" expanded="true" signature="3065:3112" placeholder="DELETE FROM " />
-                    <marker date="1508281348111" expanded="true" signature="4230:4249" placeholder="SELECT * FRO... rooms" />
-                    <marker date="1508281348111" expanded="true" signature="4894:4914" placeholder="SELECT * FRO... chores" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Settings.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/corve/setup/Settings.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="Settings.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/corve/setup/Settings.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.24692738">
-                  <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="73" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Core.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/corve/Core.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.49385476">
+              <caret line="44" column="32" selection-start-line="44" selection-start-column="32" selection-end-line="44" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Settings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/corve/setup/Settings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -147,7 +75,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/save/Record.java" />
         <option value="$PROJECT_DIR$/src/model/Room.java" />
         <option value="$PROJECT_DIR$/src/model/State.java" />
         <option value="$PROJECT_DIR$/src/model/Chore.java" />
@@ -179,24 +106,25 @@
         <option value="$PROJECT_DIR$/src/corve/util/Rooms.java" />
         <option value="$PROJECT_DIR$/src/corve/model/JobDataTags.java" />
         <option value="$PROJECT_DIR$/src/corve/util/Record.java" />
-        <option value="$PROJECT_DIR$/src/corve/model/PunisherManager.java" />
         <option value="$PROJECT_DIR$/src/corve/model/Punisher.java" />
         <option value="$PROJECT_DIR$/src/corve/mail/MailGenerator.java" />
         <option value="$PROJECT_DIR$/src/corve/mail/MailingCore.java" />
         <option value="$PROJECT_DIR$/src/corve/util/JobDataTags.java" />
         <option value="$PROJECT_DIR$/src/corve/notification/Notifier.java" />
         <option value="$PROJECT_DIR$/src/corve/util/Settings.java" />
-        <option value="$PROJECT_DIR$/src/corve/model/AssignerManager.java" />
-        <option value="$PROJECT_DIR$/src/corve/model/Assigner.java" />
-        <option value="$PROJECT_DIR$/src/corve/notification/MailingCore.java" />
         <option value="$PROJECT_DIR$/src/corve/notification/MailOut.java" />
         <option value="$PROJECT_DIR$/src/corve/notification/MailIn.java" />
         <option value="$PROJECT_DIR$/src/corve/config/Settings.java" />
         <option value="$PROJECT_DIR$/src/corve/config/ConfigReader.java" />
-        <option value="$PROJECT_DIR$/src/corve/setup/Settings.java" />
         <option value="$PROJECT_DIR$/src/corve/setup/ConfigReader.java" />
         <option value="$PROJECT_DIR$/config.txt" />
+        <option value="$PROJECT_DIR$/src/corve/setup/Settings.java" />
         <option value="$PROJECT_DIR$/src/corve/save/DBController.java" />
+        <option value="$PROJECT_DIR$/config_backup.txt" />
+        <option value="$PROJECT_DIR$/src/corve/model/Assigner.java" />
+        <option value="$PROJECT_DIR$/src/corve/notification/MailingCore.java" />
+        <option value="$PROJECT_DIR$/src/corve/model/AssignerManager.java" />
+        <option value="$PROJECT_DIR$/src/corve/model/PunisherManager.java" />
         <option value="$PROJECT_DIR$/src/corve/Core.java" />
       </list>
     </option>
@@ -922,7 +850,7 @@
       <workItem from="1508276787625" duration="8264000" />
       <workItem from="1508322923067" duration="10236000" />
       <workItem from="1508340206295" duration="2179000" />
-      <workItem from="1508363139822" duration="4357000" />
+      <workItem from="1508363139822" duration="5445000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1480701982387</created>
@@ -978,11 +906,17 @@
       <option name="project" value="LOCAL" />
       <updated>1508335153200</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="created config reader and settings, ready for global settings integration">
+      <created>1508367507959</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1508367507959</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179404000" />
+    <option name="totallyTimeSpent" value="180492000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1292,28 +1226,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/corve/util/Chore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2849162">
-          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/corve/model/PunisherManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="91" selection-start-line="46" selection-start-column="91" selection-end-line="46" selection-end-column="91" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/corve/model/Punisher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/corve/util/Record.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6317568">
@@ -1335,16 +1247,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/corve/model/AssignerManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="58" column="52" selection-start-line="58" selection-start-column="52" selection-end-line="58" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/corve/notification/Notifier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3158784">
@@ -1360,40 +1262,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/corve/notification/MailOut.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="71" selection-start-line="36" selection-start-column="71" selection-end-line="36" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/corve/notification/MailingCore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/corve/model/Assigner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4368715">
-          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/corve/setup/ConfigReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/corve/setup/Settings.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1402,48 +1270,119 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.txt">
+    <entry file="file://$PROJECT_DIR$/src/corve/save/DBController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <caret line="173" column="106" selection-start-line="173" selection-start-column="106" selection-end-line="173" selection-end-column="106" />
+          <folding>
+            <marker date="1508367585531" expanded="true" signature="886:1032" placeholder="SELECT room_... *" />
+            <marker date="1508367585531" expanded="true" signature="907:928" placeholder="SELECT * FRO... archive" />
+            <marker date="1508367585531" expanded="true" signature="935:956" placeholder="SELECT * FRO... records" />
+            <marker date="1508367585531" expanded="true" signature="1486:1588" placeholder="INSERT INTO records... " />
+            <marker date="1508367585531" expanded="true" signature="1676:1784" placeholder="INSERT INTO records... " />
+            <marker date="1508367585531" expanded="true" signature="2480:2647" placeholder="INSERT INTO settlements... " />
+            <marker date="1508367585531" expanded="true" signature="2532:2647" placeholder="SELECT x.id,... *" />
+            <marker date="1508367585531" expanded="true" signature="2565:2644" placeholder="SELECT * FRO... records" />
+            <marker date="1508367585531" expanded="true" signature="2708:2777" placeholder="INSERT INTO archive... " />
+            <marker date="1508367585531" expanded="true" signature="2728:2777" placeholder="select * FRO... records" />
+            <marker date="1508367585531" expanded="true" signature="2837:2884" placeholder="DELETE FROM " />
+            <marker date="1508367585531" expanded="true" signature="4002:4021" placeholder="SELECT * FRO... rooms" />
+            <marker date="1508367585531" expanded="true" signature="4666:4686" placeholder="SELECT * FRO... chores" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/corve/notification/MailOut.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51284915">
+          <caret line="36" column="71" selection-start-line="36" selection-start-column="71" selection-end-line="36" selection-end-column="71" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config_backup.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.22793296">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/corve/save/DBController.java">
+    <entry file="file://$PROJECT_DIR$/src/corve/model/Assigner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+          <caret line="53" column="50" selection-start-line="53" selection-start-column="50" selection-end-line="53" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/corve/model/Punisher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1329609">
+          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/corve/notification/MailingCore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.037988827">
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
           <folding>
-            <marker date="1508281348111" expanded="true" signature="1114:1260" placeholder="SELECT room_... *" />
-            <marker date="1508281348111" expanded="true" signature="1135:1156" placeholder="SELECT * FRO... archive" />
-            <marker date="1508281348111" expanded="true" signature="1163:1184" placeholder="SELECT * FRO... records" />
-            <marker date="1508281348111" expanded="true" signature="1714:1816" placeholder="INSERT INTO records... " />
-            <marker date="1508281348111" expanded="true" signature="1904:2012" placeholder="INSERT INTO records... " />
-            <marker date="1508281348111" expanded="true" signature="2708:2875" placeholder="INSERT INTO settlements... " />
-            <marker date="1508281348111" expanded="true" signature="2760:2875" placeholder="SELECT x.id,... *" />
-            <marker date="1508281348111" expanded="true" signature="2793:2872" placeholder="SELECT * FRO... records" />
-            <marker date="1508281348111" expanded="true" signature="2936:3005" placeholder="INSERT INTO archive... " />
-            <marker date="1508281348111" expanded="true" signature="2956:3005" placeholder="select * FRO... records" />
-            <marker date="1508281348111" expanded="true" signature="3065:3112" placeholder="DELETE FROM " />
-            <marker date="1508281348111" expanded="true" signature="4230:4249" placeholder="SELECT * FRO... rooms" />
-            <marker date="1508281348111" expanded="true" signature="4894:4914" placeholder="SELECT * FRO... chores" />
+            <element signature="e#187#188#0" expanded="true" />
+            <element signature="e#221#222#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/corve/model/AssignerManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8480447">
+          <caret line="67" column="46" selection-start-line="67" selection-start-column="46" selection-end-line="67" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/corve/util/Chore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2849162">
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/corve/model/PunisherManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37988827">
+          <caret line="35" column="141" selection-start-line="35" selection-start-column="141" selection-end-line="35" selection-end-column="141" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22793296">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/corve/setup/ConfigReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2055866">
+          <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/corve/Core.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3988827">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.49385476">
+          <caret line="44" column="32" selection-start-line="44" selection-start-column="32" selection-end-line="44" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

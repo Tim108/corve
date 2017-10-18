@@ -1,6 +1,7 @@
 package corve.model;
 
 import corve.save.DBController;
+import corve.setup.Settings;
 import corve.util.JobDataTags;
 import org.apache.log4j.BasicConfigurator;
 import org.quartz.*;
@@ -20,9 +21,6 @@ import static org.quartz.TriggerBuilder.newTrigger;
  * Created by Tim on 18/10/2017.
  */
 public class PunisherManager {
-    private static final DayOfWeek ASSIGN_DAY = DayOfWeek.SATURDAY;
-    private static final int ASSIGN_HOUR = 4;
-    private static final int ASSIGN_MINUTE = 0;
 
     private DBController db;
     private Scheduler scheduler;
@@ -35,7 +33,7 @@ public class PunisherManager {
         scheduler = StdSchedulerFactory.getDefaultScheduler();
 
         // moment to assign
-        LocalDateTime ldt = LocalDateTime.now().with(TemporalAdjusters.next(ASSIGN_DAY)).withHour(ASSIGN_HOUR).withMinute(ASSIGN_MINUTE).withSecond(0).withNano(0);
+        LocalDateTime ldt = LocalDateTime.now().with(TemporalAdjusters.next(Settings.ASSIGN_DAY)).withHour(Settings.ASSIGN_HOUR).withMinute(0).withSecond(0).withNano(0);
         Date date = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
 
         // make the general job data which is used by all assigners
