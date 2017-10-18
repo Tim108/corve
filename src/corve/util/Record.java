@@ -31,7 +31,6 @@ public class Record {
         SecureRandom random = new SecureRandom();
         String identifier = new BigInteger(130, random).toString(32);
         code = "r" + room_id + "c" + chore_id + "t" + end_date + "i" + identifier;
-        System.out.println("Record: " + code);
     }
 
     /**

@@ -33,6 +33,28 @@ public class DBController {
     }
 
     /**
+     * Finds the most recent record of the given chore and returns its room id
+     * Searches in both the records table as well as the archieve table
+     *
+     * @param chore
+     * @return
+     */
+    public int getLastRoomID(Chore chore) {
+        int roomID = -1;
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT room_id FROM (SELECT * FROM archive UNION SELECT * FROM records) r where r.chore_id =" + chore.getId() + " ORDER BY start_date DESC LIMIT 1");
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.first()) {
+                roomID = rs.getInt("room_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roomID;
+    }
+
+    /**
      * adds the given record to the database
      *
      * @param record

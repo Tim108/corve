@@ -1,24 +1,23 @@
 package corve.model;
 
 import corve.save.DBController;
+import corve.util.JobDataTags;
+import org.quartz.Job;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 import java.sql.SQLException;
 
 /**
  * Created by Tim on 07/04/2017.
  */
-public class Punisher {
-    private DBController db;
+public class Punisher implements Job{
 
-    public Punisher(DBController db) {
-        this.db = db;
-    }
-
-    /**
-     * takes records from the record queue until it finds one with an end that that is still to come
-     * these records will remain in the database without a room_done_id, effectively marking them failed
-     */
-    public void punish(){
+    @Override
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        JobDataMap data = jobExecutionContext.getJobDetail().getJobDataMap();
+        DBController db = (DBController) data.get(JobDataTags.DATABASE);
         try {
             db.punish();
         } catch (SQLException e) {
