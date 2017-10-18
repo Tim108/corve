@@ -6,7 +6,7 @@ import corve.save.DBController;
 import corve.util.Chore;
 import corve.util.JobDataTags;
 import corve.util.Room;
-import corve.util.Settings;
+import corve.setup.Settings;
 import org.apache.log4j.BasicConfigurator;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -40,7 +40,7 @@ public class AssignerManager {
 
     public AssignerManager(DBController dbc) throws SchedulerException {
         db = dbc;
-        notifier = new MailingCore(Settings.MAIL_USER_NAME, Settings.MAIL_PASSWORD);
+        notifier = new MailingCore(Settings.MAIL_USERNAME, Settings.MAIL_PASSWORD);
         chores = db.getChores();
         rooms = db.getRooms();
         Collections.sort(rooms);

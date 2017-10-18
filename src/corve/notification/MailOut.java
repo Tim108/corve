@@ -1,6 +1,6 @@
 package corve.notification;
 
-import corve.util.Settings;
+import corve.setup.Settings;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -29,12 +29,12 @@ public class MailOut {
         Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(Settings.MAIL_USER_NAME, Settings.MAIL_PASSWORD);
+                return new PasswordAuthentication(Settings.MAIL_USERNAME, Settings.MAIL_PASSWORD);
             }
         });
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(Settings.MAIL_USER_NAME));
+            message.setFrom(new InternetAddress(Settings.MAIL_USERNAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
             message.setText(email_body);
