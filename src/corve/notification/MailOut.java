@@ -1,4 +1,6 @@
-package corve.mail;
+package corve.notification;
+
+import corve.util.Settings;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -14,7 +16,7 @@ import java.util.Properties;
  */
 public class MailOut {
 
-    public void doSendMail(final String username, final String password, String to, String subject, String email_body) {
+    public void doSendMail(String to, String subject, String email_body) {
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -27,12 +29,12 @@ public class MailOut {
         Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication(Settings.MAIL_USER_NAME, Settings.MAIL_PASSWORD);
             }
         });
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
+            message.setFrom(new InternetAddress(Settings.MAIL_USER_NAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
             message.setText(email_body);

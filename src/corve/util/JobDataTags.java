@@ -12,4 +12,5 @@ public class JobDataTags {
     public static final String DATABASE = "database4321";
     public static final String CHORE = "chore4321";
     public static final String ROOMS = "rooms4321";
+    public static final String NOTIFIER = "notifier4321";
 }

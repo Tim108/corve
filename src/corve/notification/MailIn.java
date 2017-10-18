@@ -1,4 +1,4 @@
-package corve.mail;
+package corve.notification;
 
 import javax.mail.*;
 import javax.mail.search.FlagTerm;
@@ -8,11 +8,12 @@ import java.util.Properties;
 
 /**
  * Created by Tim on 25/11/2016.
+ * <p>
+ * Discontinued for now
  */
 public class MailIn {
 
-    public Map<String, String> check(String user,
-                                     String password) { // returns map <subject,email address>
+    public Map<String, String> check(String user, String password) { // returns map <subject,email address>
         try {
 
             //create properties field
@@ -20,9 +21,9 @@ public class MailIn {
             Session session;
             Store store;
             properties = new Properties();
-            properties.setProperty("mail.host", "imap.gmail.com");
-            properties.setProperty("mail.port", "995");
-            properties.setProperty("mail.transport.protocol", "imaps");
+            properties.setProperty("notification.host", "imap.gmail.com");
+            properties.setProperty("notification.port", "995");
+            properties.setProperty("notification.transport.protocol", "imaps");
 
             //create store
             session = Session.getInstance(properties,

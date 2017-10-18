@@ -1,9 +1,12 @@
 package corve.model;
 
+import corve.notification.MailingCore;
+import corve.notification.Notifier;
 import corve.save.DBController;
 import corve.util.Chore;
 import corve.util.JobDataTags;
 import corve.util.Room;
+import corve.util.Settings;
 import org.apache.log4j.BasicConfigurator;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -33,9 +36,11 @@ public class AssignerManager {
     private DBController db;
     private List<Chore> chores;
     private List<Room> rooms;
+    private Notifier notifier;
 
     public AssignerManager(DBController dbc) throws SchedulerException {
         db = dbc;
+        notifier = new MailingCore(Settings.MAIL_USER_NAME, Settings.MAIL_PASSWORD);
         chores = db.getChores();
         rooms = db.getRooms();
         Collections.sort(rooms);
@@ -51,6 +56,7 @@ public class AssignerManager {
         // make the general job data which is used by all assigners
         JobDataMap jobData = new JobDataMap();
         jobData.put(JobDataTags.DATABASE, db);
+        jobData.put(JobDataTags.NOTIFIER, notifier);
         jobData.put(JobDataTags.ROOMS, rooms);
         jobData.put(JobDataTags.CHORE, null); // don't know if this is necessary for .replace()
 

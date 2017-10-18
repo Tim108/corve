@@ -1,5 +1,6 @@
 package corve.model;
 
+import corve.notification.Notifier;
 import corve.save.DBController;
 import corve.util.Chore;
 import corve.util.JobDataTags;
@@ -21,13 +22,12 @@ import java.util.List;
 public class Assigner implements Job {
     private static DayOfWeek DEADLINE_DAY = DayOfWeek.SATURDAY;
 
-    private DBController db;
-
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         // Get all the objects
         JobDataMap data = jobExecutionContext.getJobDetail().getJobDataMap();
         DBController db = (DBController) data.get(JobDataTags.DATABASE);
+        Notifier notifier = (Notifier) data.get(JobDataTags.NOTIFIER);
         Chore chore = (Chore) data.get(JobDataTags.CHORE);
         List<Room> rooms = (List<Room>) data.get(JobDataTags.ROOMS);
 
@@ -47,6 +47,8 @@ public class Assigner implements Job {
         // Make it a record and put it in the database
         Record record = new Record(room.getId(), chore.getId(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(deadline));
         db.addRecord(record);
+
+        notifier.notifyOfAssignment(room.getEmail(), record.getEnd_date(), chore.getName(), record.getCode());
 
         System.out.println("Assigned: " + record);
 

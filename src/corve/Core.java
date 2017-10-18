@@ -1,28 +1,22 @@
 package corve;
 
-import corve.mail.MailingCore;
+import corve.notification.MailingCore;
 import corve.model.AssignerManager;
-import corve.model.Punisher;
 import corve.model.PunisherManager;
 import corve.save.DBController;
-import org.quartz.Scheduler;
+import corve.util.Settings;
 import org.quartz.SchedulerException;
 
 /**
  * Created by Tim on 23/11/2016.
  */
 public class Core {
-    private static final String MAIL_USER_NAME = "corveesysteem@gmail.com";
-    private static final String MAIL_PASSWORD = "39lA*v3a-V*ai(pal*a]s3j0Skla";
 
     private DBController dbc;
     private AssignerManager am;
     private PunisherManager pm;
-    private Punisher punisher;
 
     private MailingCore comm;
-
-    private Scheduler scheduler;
 
     public Core() {
         dbc = new DBController();
@@ -34,7 +28,7 @@ public class Core {
             e.printStackTrace();
         }
 
-        comm = new MailingCore(MAIL_USER_NAME, MAIL_PASSWORD); // this should be in a file
+        comm = new MailingCore(Settings.MAIL_USER_NAME, Settings.MAIL_PASSWORD); // this should be in a file
     }
 
     public void start() {
