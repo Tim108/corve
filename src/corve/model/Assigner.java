@@ -13,15 +13,11 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.sql.Timestamp;
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * Created by Tim on 23/11/2016.
- */
 public class Assigner implements Job {
 
     @Override
@@ -31,11 +27,12 @@ public class Assigner implements Job {
         DBController db = (DBController) data.get(JobDataTags.DATABASE);
         Notifier notifier = (Notifier) data.get(JobDataTags.NOTIFIER);
         Chore chore = (Chore) data.get(JobDataTags.CHORE);
+        @SuppressWarnings("unchecked")
         List<Room> rooms = (List<Room>) data.get(JobDataTags.ROOMS);
 
         // Set the deadline
-//        LocalDateTime deadline = LocalDateTime.now().with(TemporalAdjusters.next(Settings.DEADLINE_DAY)).withHour(Settings.DEADLINE_HOUR).withMinute(0).withSecond(0).withNano(0);
-        LocalDateTime deadline = LocalDateTime.now().plusSeconds(2);
+        LocalDateTime deadline = LocalDateTime.now().with(TemporalAdjusters.next(Settings.DEADLINE_DAY)).withHour(Settings.DEADLINE_HOUR).withMinute(0).withSecond(0).withNano(0);
+//        LocalDateTime deadline = LocalDateTime.now().plusSeconds(2);
 
         // Determine who's turn it is
         int lastRoomID = db.getLastRoomID(chore);
@@ -48,10 +45,11 @@ public class Assigner implements Job {
         }
 
         // Make it a record and put it in the database
+        assert room != null;
         Record record = new Record(room.getId(), chore.getId(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(deadline));
         db.addRecord(record);
 
-        notifier.notifyOfAssignment(room.getEmail(), record.getEnd_date(), chore.getName(), record.getCode());
+        notifier.notifyOfAssignment(room.getEmail(), room.getName(), record.getEnd_date(), chore.getName(), record.getCode());
 
         System.out.println("Assigned: " + record);
     }

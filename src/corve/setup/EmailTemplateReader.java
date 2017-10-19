@@ -9,16 +9,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
-/**
- * Created by Tim on 19/10/2017.
- */
 public class EmailTemplateReader {
     String mapPath;
 
     public EmailTemplateReader(String mapPath, List<Chore> chores) {
         this.mapPath = mapPath;
         File d = new File(mapPath);
-        if (!d.exists() || !d.isDirectory()) d.mkdir();
+        if (!d.exists() || !d.isDirectory()) //noinspection ResultOfMethodCallIgnored
+            d.mkdir();
 
         boolean restart = false;
         for (Chore c : chores) {
@@ -66,7 +64,8 @@ public class EmailTemplateReader {
     private String getEmptyTemplate() {
         return "Please write template for the email that should be sent here. \n" +
                 "In the name of the file you can see which chore this email will be about.\n" +
-                "Use ##chore## to refer to the chore, ##end_date## to refer to the deadline of the chore \n" +
-                "and ##code## to refer to the code which is needed to complete the chore for the system.";
+                "Use ##name## to refer to the room owners' name, ##chore## to refer to the chore, \n" +
+                "##end_date## to refer to the deadline of the chore and ##code## to refer to \n" +
+                "the code which is needed to complete the chore for the system.";
     }
 }

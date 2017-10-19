@@ -8,12 +8,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.*;
 import java.util.Properties;
 
-/**
- * Created by Tim on 25/11/2016.
- */
 public class MailOut {
 
     public void doSendMail(String to, String subject, String email_body) {
@@ -41,8 +37,7 @@ public class MailOut {
             Transport.send(message);
             System.out.println("message sent");
         } catch (Exception e) {
-            System.out.println(e);
-            JOptionPane.showMessageDialog(null, e.toString());
+            e.printStackTrace();
         }
     }
 }

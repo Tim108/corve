@@ -3,15 +3,14 @@ package corve.model;
 import corve.notification.MailingCore;
 import corve.notification.Notifier;
 import corve.save.DBController;
+import corve.setup.Settings;
 import corve.util.Chore;
 import corve.util.JobDataTags;
 import corve.util.Room;
-import corve.setup.Settings;
 import org.apache.log4j.BasicConfigurator;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
@@ -23,23 +22,14 @@ import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
-/**
- * Created by Tim on 18/10/2017.
- */
 public class AssignerManager {
 
     private Scheduler scheduler;
 
-    private DBController db;
-    private List<Chore> chores;
-    private List<Room> rooms;
-    private Notifier notifier;
-
-    public AssignerManager(DBController dbc) throws SchedulerException {
-        db = dbc;
-        notifier = new MailingCore();
-        chores = db.getChores();
-        rooms = db.getRooms();
+    public AssignerManager(DBController db) throws SchedulerException {
+        Notifier notifier = new MailingCore();
+        List<Chore> chores = db.getChores();
+        List<Room> rooms = db.getRooms();
         Collections.sort(rooms);
 
         BasicConfigurator.configure();
@@ -65,7 +55,7 @@ public class AssignerManager {
             JobDetail job = newJob(Assigner.class).setJobData(jobDataC).withIdentity(JobDataTags.ASSIGNER, "Job-" + c.getId() + "-" + c.getName()).build();
 
             Trigger trigger = newTrigger().withIdentity(JobDataTags.ASSIGNER, "Every 10 seconds" + c.getName()).startNow().withSchedule(simpleSchedule().withIntervalInSeconds(10 * c.getInterval()).repeatForever()).build(); // test trigger
-//            trigger = newTrigger().withIdentity(JobDataTags.ASSIGNER, "Trigger-" + c.getId() + "-" + c.getName()).startAt(date).withSchedule(simpleSchedule().withIntervalInHours(168 * c.getInterval()).repeatForever()).build(); // 168 hours in a week
+//            Trigger trigger = newTrigger().withIdentity(JobDataTags.ASSIGNER, "Trigger-" + c.getId() + "-" + c.getName()).startAt(date).withSchedule(simpleSchedule().withIntervalInHours(168 * c.getInterval()).repeatForever()).build(); // 168 hours in a week
 
             // schedule the job
             scheduler.scheduleJob(job, trigger);
@@ -75,6 +65,7 @@ public class AssignerManager {
     public void start() throws SchedulerException {
         scheduler.start();
     }
+
     public void stop() throws SchedulerException {
         scheduler.shutdown();
     }

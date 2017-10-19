@@ -1,9 +1,7 @@
 package corve.util;
 
-/**
- * Created by Tim on 23/11/2016.
- */
-public class Room implements Comparable<Room>{
+
+public class Room implements Comparable<Room> {
     private int id;
     private String name;
     private String email;
@@ -12,14 +10,6 @@ public class Room implements Comparable<Room>{
         this.id = nr;
         this.name = name;
         this.email = email;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setEmail(String email) {
@@ -40,8 +30,8 @@ public class Room implements Comparable<Room>{
 
     @Override
     public int compareTo(Room o) {
-        if(id < o.getId()) return -1;
-        if(id > o.getId()) return 1;
+        if (id < o.getId()) return -1;
+        if (id > o.getId()) return 1;
         return 0;
     }
 

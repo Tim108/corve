@@ -8,16 +8,13 @@ import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.util.stream.Stream;
 
-/**
- * Created by Tim on 18/10/2017.
- */
 public class ConfigReader {
     String filepath;
 
     public ConfigReader(String filepath) {
         this.filepath = filepath;
         File f = new File(filepath);
-        if(!f.exists() || f.isDirectory()) {
+        if (!f.exists() || f.isDirectory()) {
             System.out.println(filepath + " not present!");
             System.out.println("config file created, please fill in your configurations");
             try {
@@ -34,7 +31,7 @@ public class ConfigReader {
     public void readConfig() {
         try {
             Stream<String> lines = Files.lines(Paths.get(filepath));
-            lines.forEach(s -> interpretLine(s));
+            lines.forEach(this::interpretLine);
             lines.close();
 
         } catch (IOException e) {
@@ -166,8 +163,6 @@ public class ConfigReader {
                         System.out.println("Entry for \'assign_hour\' not a number");
                 }
                 break;
-            default:
-                return;
         }
     }
 

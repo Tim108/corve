@@ -9,9 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Tim on 20/02/2017.
- */
 public class DBController {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
@@ -29,10 +26,7 @@ public class DBController {
 
     /**
      * Finds the most recent record of the given chore and returns its room id
-     * Searches in both the records table as well as the archieve table
-     *
-     * @param chore
-     * @return
+     * Searches in both the records table as well as the archive table
      */
     public int getLastRoomID(Chore chore) {
         int roomID = -1;
@@ -49,11 +43,6 @@ public class DBController {
         return roomID;
     }
 
-    /**
-     * adds the given record to the database
-     *
-     * @param record
-     */
     public void addRecord(Record record) {
         try {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO records (room_id, chore_id, start_date, end_date, done_room_id, code) VALUES (?,?,?,?,?,?)");
@@ -116,12 +105,6 @@ public class DBController {
         }
     }
 
-
-    /**
-     * returns all rooms from the database
-     *
-     * @return
-     */
     public List<Room> getRooms() {
         List<Room> rooms = new ArrayList<>();
         try {
@@ -140,11 +123,6 @@ public class DBController {
         return rooms;
     }
 
-    /**
-     * returns all chores from the database
-     *
-     * @return
-     */
     public List<Chore> getChores() {
         List<Chore> chores = new ArrayList<>();
         try {
@@ -156,7 +134,7 @@ public class DBController {
                 String name = rs.getString("name");
                 String description = rs.getString("description");
                 int choreinterval = rs.getInt("choreinterval");
-                chores.add(new Chore(id, name, description, choreinterval));
+                chores.add(new Chore(id, name, choreinterval));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,9 +150,7 @@ public class DBController {
             Class.forName(JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Settings.DB_URL, Settings.DB_USERNAME, Settings.DB_PASSWORD);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }

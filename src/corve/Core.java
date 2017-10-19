@@ -1,26 +1,15 @@
 package corve;
 
-import corve.setup.ConfigReader;
-import corve.notification.MailingCore;
 import corve.model.AssignerManager;
 import corve.model.PunisherManager;
 import corve.save.DBController;
+import corve.setup.ConfigReader;
 import corve.setup.EmailTemplateReader;
-import corve.setup.Settings;
-import corve.util.EmailTemplates;
 import org.quartz.SchedulerException;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
-/**
- * Created by Tim on 23/11/2016.
- */
-public class Core {
+public class Core implements Runnable{
 
-    private DBController dbc;
-    private MailingCore mc;
     private AssignerManager am;
     private PunisherManager pm;
 
@@ -29,7 +18,7 @@ public class Core {
         new ConfigReader("config.txt").readConfig();
 
         // make database -- we assume the database is correct
-        dbc = new DBController();
+        DBController dbc = new DBController();
 
         // read email templates
         new EmailTemplateReader("emailTemplates", dbc.getChores()).readTemplates();
@@ -60,5 +49,10 @@ public class Core {
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void run() {
+        start();
     }
 }

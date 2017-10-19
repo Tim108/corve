@@ -2,9 +2,6 @@ package corve.setup;
 
 import java.time.DayOfWeek;
 
-/**
- * Created by Tim on 18/10/2017.
- */
 public class Settings {
     public static String DB_URL;
     public static String DB_USERNAME;
