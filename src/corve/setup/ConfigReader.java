@@ -1,5 +1,7 @@
 package corve.setup;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -10,10 +12,28 @@ import java.util.stream.Stream;
  * Created by Tim on 18/10/2017.
  */
 public class ConfigReader {
+    String filepath;
+
+    public ConfigReader(String filepath) {
+        this.filepath = filepath;
+        File f = new File(filepath);
+        if(!f.exists() || f.isDirectory()) {
+            System.out.println(filepath + " not present!");
+            System.out.println("config file created, please fill in your configurations");
+            try {
+                FileWriter writer = new FileWriter(f);
+                writer.write(ConfigReader.getEmptyConfig());
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.exit(1);
+        }
+    }
 
     public void readConfig() {
         try {
-            Stream<String> lines = Files.lines(Paths.get("config.txt"));
+            Stream<String> lines = Files.lines(Paths.get(filepath));
             lines.forEach(s -> interpretLine(s));
             lines.close();
 

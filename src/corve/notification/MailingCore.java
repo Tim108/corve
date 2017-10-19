@@ -1,5 +1,7 @@
 package corve.notification;
 
+import corve.util.EmailTemplates;
+
 import java.sql.Timestamp;
 
 /**
@@ -14,7 +16,7 @@ public class MailingCore implements Notifier {
 
     @Override
     public void notifyOfAssignment(String email, Timestamp endDate, String choreName, String code) {
-        co.doSendMail(email, "Corve - Get fooked", "get fooked, you have till " + endDate + " to do the " + choreName + ".. when you are done fill in the code: " + code);
+        co.doSendMail(email, "Corve - Assignment", EmailTemplates.getTemplate(choreName, endDate.toString(), code));
     }
 
     @Override

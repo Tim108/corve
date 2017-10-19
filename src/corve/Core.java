@@ -5,7 +5,9 @@ import corve.notification.MailingCore;
 import corve.model.AssignerManager;
 import corve.model.PunisherManager;
 import corve.save.DBController;
+import corve.setup.EmailTemplateReader;
 import corve.setup.Settings;
+import corve.util.EmailTemplates;
 import org.quartz.SchedulerException;
 
 import java.io.File;
@@ -18,39 +20,28 @@ import java.io.IOException;
 public class Core {
 
     private DBController dbc;
+    private MailingCore mc;
     private AssignerManager am;
     private PunisherManager pm;
 
     public Core() {
-        // check for file structure (settings file and folder with mail templates)
-        File f = new File("config.txt");
-        if(!f.exists() || f.isDirectory()) { // check the config file
-            System.out.println("config.txt not present!");
-            System.out.println("config file created, please fill in your configurations");
-            try {
-                FileWriter writer = new FileWriter(f);
-                writer.write(ConfigReader.getEmptyConfig());
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.exit(1);
-        }
-        // get settings
-        new ConfigReader().readConfig();
+        // check if config file is present and read it
+        new ConfigReader("config.txt").readConfig();
 
-        // make database
+        // make database -- we assume the database is correct
         dbc = new DBController();
 
-        // check database tables
+        // read email templates
+        new EmailTemplateReader("emailTemplates", dbc.getChores()).readTemplates();
 
-        //
+        // make the managers
         try {
             am = new AssignerManager(dbc);
             pm = new PunisherManager(dbc);
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
+
     }
 
     public void start() {

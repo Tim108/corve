@@ -17,6 +17,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Tim on 23/11/2016.
@@ -38,6 +39,7 @@ public class Assigner implements Job {
 
         // Determine who's turn it is
         int lastRoomID = db.getLastRoomID(chore);
+        if (lastRoomID == -1) lastRoomID = ThreadLocalRandom.current().nextInt(0, rooms.size());
         Room room = null;
         for (Room r : rooms) {
             if (r.getId() == lastRoomID) {
