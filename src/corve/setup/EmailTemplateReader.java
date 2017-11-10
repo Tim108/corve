@@ -10,9 +10,10 @@ import java.nio.file.Files;
 import java.util.List;
 
 public class EmailTemplateReader {
-    String mapPath;
+    private String mapPath;
 
     public EmailTemplateReader(String mapPath, List<Chore> chores) {
+        System.out.println("Creating email template reader..");
         this.mapPath = mapPath;
         File d = new File(mapPath);
         if (!d.exists() || !d.isDirectory()) //noinspection ResultOfMethodCallIgnored
@@ -33,9 +34,11 @@ public class EmailTemplateReader {
             System.out.println("folder and files created, please fill in the templates");
             System.exit(1);
         }
+        System.out.println("Creating email template reader done!");
     }
 
     public void readTemplates() {
+        System.out.println("Reading email templates..");
         File d = new File(mapPath);
         File[] templates = d.listFiles();
         if (templates == null) return;
@@ -48,6 +51,7 @@ public class EmailTemplateReader {
                 e.printStackTrace();
             }
         }
+        System.out.println("Reading email templates done!");
     }
 
     private void makeTemplate(String path) {

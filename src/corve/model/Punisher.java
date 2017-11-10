@@ -14,6 +14,7 @@ public class Punisher implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        System.out.println("Punishing..");
         JobDataMap data = jobExecutionContext.getJobDetail().getJobDataMap();
         DBController db = (DBController) data.get(JobDataTags.DATABASE);
         Notifier notifier = (Notifier) data.get(JobDataTags.NOTIFIER);

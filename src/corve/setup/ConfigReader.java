@@ -9,9 +9,10 @@ import java.time.DayOfWeek;
 import java.util.stream.Stream;
 
 public class ConfigReader {
-    String filepath;
+    private String filepath;
 
     public ConfigReader(String filepath) {
+        System.out.println("Creating config reader..");
         this.filepath = filepath;
         File f = new File(filepath);
         if (!f.exists() || f.isDirectory()) {
@@ -26,9 +27,11 @@ public class ConfigReader {
             }
             System.exit(1);
         }
+        System.out.println("Creating config reader done!");
     }
 
     public void readConfig() {
+        System.out.println("Reading config..");
         try {
             Stream<String> lines = Files.lines(Paths.get(filepath));
             lines.forEach(this::interpretLine);
@@ -37,7 +40,7 @@ public class ConfigReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Config read!");
+        System.out.println("Reading config done!");
     }
 
     private void interpretLine(String line) {
@@ -166,7 +169,7 @@ public class ConfigReader {
         }
     }
 
-    public static String getEmptyConfig() {
+    private static String getEmptyConfig() {
         return "" +
                 "db_url=\n" +
                 "db_username=\n" +

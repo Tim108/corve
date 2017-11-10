@@ -30,13 +30,18 @@ public class Assigner implements Job {
         @SuppressWarnings("unchecked")
         List<Room> rooms = (List<Room>) data.get(JobDataTags.ROOMS);
 
+        System.out.println("Assigning for " + chore.getName());
+
         // Set the deadline
         LocalDateTime deadline = LocalDateTime.now().with(TemporalAdjusters.next(Settings.DEADLINE_DAY)).withHour(Settings.DEADLINE_HOUR).withMinute(0).withSecond(0).withNano(0);
 //        LocalDateTime deadline = LocalDateTime.now().plusSeconds(2);
 
         // Determine who's turn it is
         int lastRoomID = db.getLastRoomID(chore);
-        if (lastRoomID == -1) lastRoomID = ThreadLocalRandom.current().nextInt(0, rooms.size());
+        if (lastRoomID == -1) {
+            System.out.println("Couldn't find last room ID of " + chore.getName() + " so a random room is picked");
+            lastRoomID = ThreadLocalRandom.current().nextInt(0, rooms.size());
+        }
         Room room = null;
         for (Room r : rooms) {
             if (r.getId() == lastRoomID) {
@@ -51,6 +56,6 @@ public class Assigner implements Job {
 
         notifier.notifyOfAssignment(room.getEmail(), room.getName(), record.getEnd_date(), chore.getName(), record.getCode());
 
-        System.out.println("Assigned: " + record);
+        System.out.println(chore.getName() + " assigned: " + record);
     }
 }

@@ -10,25 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBController {
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-    Connection conn;
-
-    public DBController() {
-        openConnection();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        closeConnection();
-        super.finalize();
-    }
+    private Connection conn;
 
     /**
      * Finds the most recent record of the given chore and returns its room id
      * Searches in both the records table as well as the archive table
      */
     public int getLastRoomID(Chore chore) {
+        openConnection();
         int roomID = -1;
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT room_id FROM (SELECT * FROM archive UNION SELECT * FROM records) r where r.chore_id =" + chore.getId() + " ORDER BY start_date DESC LIMIT 1");
@@ -40,10 +31,12 @@ public class DBController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
         return roomID;
     }
 
     public void addRecord(Record record) {
+        openConnection();
         try {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO records (room_id, chore_id, start_date, end_date, done_room_id, code) VALUES (?,?,?,?,?,?)");
             if (record.getId() != -1) {
@@ -63,10 +56,11 @@ public class DBController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
-    public void punish()
-            throws SQLException {
+    public void punish() throws SQLException {
+        openConnection();
         PreparedStatement ps1 = conn.prepareStatement("set @N := (now());");
         PreparedStatement ps2 = conn.prepareStatement("INSERT INTO settlements(room_id, record_id, amount) SELECT x.id, x.room_id, 10 FROM (SELECT * FROM records WHERE @N > records.end_date AND records.done_room_id = -1) x ;");
         PreparedStatement ps3 = conn.prepareStatement("INSERT INTO archive select * FROM records where records.end_date < @N;");
@@ -103,9 +97,11 @@ public class DBController {
             }
             conn.setAutoCommit(true);
         }
+        closeConnection();
     }
 
     public List<Room> getRooms() {
+        openConnection();
         List<Room> rooms = new ArrayList<>();
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM rooms");
@@ -120,10 +116,12 @@ public class DBController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
         return rooms;
     }
 
     public List<Chore> getChores() {
+        openConnection();
         List<Chore> chores = new ArrayList<>();
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM chores");
@@ -139,6 +137,7 @@ public class DBController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
         return chores;
     }
 
@@ -146,6 +145,7 @@ public class DBController {
      * opens the database connection
      */
     private void openConnection() {
+        System.out.println("Database connection opened");
         try {
             Class.forName(JDBC_DRIVER);
 
@@ -159,6 +159,7 @@ public class DBController {
      * closes the database connections
      */
     private void closeConnection() {
+        System.out.println("Database connection closed");
         try {
             conn.close();
         } catch (SQLException e) {

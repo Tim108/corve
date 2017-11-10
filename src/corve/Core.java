@@ -14,6 +14,8 @@ public class Core implements Runnable{
     private PunisherManager pm;
 
     public Core() {
+        System.out.println("Creating Corve..");
+
         // check if config file is present and read it
         new ConfigReader("config.txt").readConfig();
 
@@ -31,24 +33,29 @@ public class Core implements Runnable{
             e.printStackTrace();
         }
 
+        System.out.println("Corve created!");
     }
 
     public void start() {
+        System.out.println("Starting Corve..");
         try {
             pm.start();
             am.start();
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
+        System.out.println("Corve started!");
     }
 
     public void stop() {
+        System.out.println("Stopping Corve..");
         try {
             pm.stop();
             am.stop();
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
+        System.out.println("Corve Stopped!");
     }
 
     @Override
