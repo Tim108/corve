@@ -62,7 +62,7 @@ public class DBController {
     public void punish() throws SQLException {
         openConnection();
         PreparedStatement ps1 = conn.prepareStatement("set @N := (now());");
-        PreparedStatement ps2 = conn.prepareStatement("INSERT INTO settlements(room_id, record_id, amount) SELECT x.id, x.room_id, 10 FROM (SELECT * FROM records WHERE @N > records.end_date AND records.done_room_id = -1) x ;");
+        PreparedStatement ps2 = conn.prepareStatement("INSERT INTO settlements(room_id, record_id, amount) SELECT x.id, x.room_id, -10 FROM (SELECT * FROM records WHERE @N > records.end_date AND records.done_room_id = -1) x ;");
         PreparedStatement ps3 = conn.prepareStatement("INSERT INTO archive select * FROM records where records.end_date < @N;");
         PreparedStatement ps4 = conn.prepareStatement("DELETE FROM records where records.end_date < @N;");
 
