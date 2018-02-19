@@ -16,4 +16,6 @@ public class Settings {
     public static int DEADLINE_HOUR;
     public static DayOfWeek PUNISH_DAY;
     public static int PUNISH_HOUR;
+
+    public static String LOG_FOLDER;
 }
